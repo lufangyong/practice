@@ -1,0 +1,15 @@
+{
+  "name": "koa-tpl",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.5.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa2-cors": "^2.0.6",
+    "mongoose": "^5.2.14",
+    "superagent": "^3.8.3",
+    "uuid": "^3.3.2"
+  }
+}

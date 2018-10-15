@@ -22,6 +22,11 @@ import VHeader from '@/components/VHeader'
 export default {
   components: {
     VHeader
+  },
+  created() {
+    this.axios.get('/v1/api/seller').then(res => {
+      console.log(res.data)
+    })
   }
 }
 </script>
