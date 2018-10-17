@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="tab border-1px">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
@@ -23,9 +23,16 @@ export default {
   components: {
     VHeader
   },
+  data() {
+    return {
+      seller: {},
+    }
+  },
   created() {
     this.axios.get('/v1/api/seller').then(res => {
-      console.log(res.data)
+      if (res.data.code === '0') {
+        this.seller = res.data.data.seller
+      }
     })
   }
 }

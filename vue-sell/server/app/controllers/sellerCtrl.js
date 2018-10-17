@@ -9,7 +9,7 @@ const getList = async (ctx) => {
   ctx.body = {
     code: '0',
     msg: '成功',
-    data: data
+    data: data[0]
   }
 };
 
