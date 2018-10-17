@@ -22,7 +22,9 @@ app.use(bodyParser());
 
 // router
 const sellerRouter = require('./app/router/sellerRouter');
+const goodsRouter = require('./app/router/goodsRouter');
 
 app.use(sellerRouter.routes()).use(sellerRouter.allowedMethods());
+app.use(goodsRouter.routes()).use(goodsRouter.allowedMethods());
 
 app.listen(config);
