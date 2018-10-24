@@ -16,7 +16,7 @@
       </ul>
     </div>
     <div class="foods-wrapper" ref="foodsWrapper">
-      <ul ref="foodsContent">
+      <ul>
         <li class="food-list"
             v-for="(item, index) in goods"
             :key="index"
@@ -60,30 +60,29 @@
         goods: [],
         listHeight: [],
         scrollY: '',
+        currentIndex: '',
       }
     },
     components: {},
-    computed: {
-      currentIndex() {
+    computed: {},
+    created() {
+      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+
+      this.getData()
+    },
+    watch: {
+      'scrollY': function () {
         for (let i = 0; i < this.listHeight.length; i++) {
           let height1 = this.listHeight[i]
           let height2 = this.listHeight[i + 1]
 
           if (!height2 || this.scrollY >= height1 && this.scrollY < height2) {
-            console.log('i', i);
-            console.log('this.scrollY', this.scrollY);
-            console.log('this.listHeight', this.listHeight);
             this._followScroll(i)
-            return i
+            return this.currentIndex = i
           }
         }
-        return 0
+        return this.currentIndex = 0
       }
-    },
-    created() {
-      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
-
-      this.getData()
     },
     methods: {
       getData() {
@@ -98,13 +97,17 @@
         })
       },
       selectMenu(index, evnet) {
-        // better-scroll会将点击事件去掉，如果滚动部分需要有点击事件，需要在参数里加上click：true。
-        // 同时，在PC上或某些手机端，由于未成功将touchend事件move掉，点击事件会执行两次。
-        // better-scroll派发的event事件和原生js的event有属性上的区别，其中有一个属性为event._constructed。better-scroll派发的事件中event._constructed为true，原生点击事件中没有这个属性
+        /**
+         * better-scroll会将点击事件去掉，如果滚动部分需要有点击事件，需要在参数里加上click：true
+         * 同时，在PC上或某些手机端，由于未成功将touchEnd事件move掉，点击事件会执行两次
+         * better-scroll派发的event事件和原生js的event有属性上的区别，其中有一个属性为event._constructed
+         * better-scroll派发的事件中event._constructed为true，原生点击事件中没有这个属性
+         */
         if (!event._constructed) {
           return
         }
 
+        this.currentIndex = index;
         let foodsList = this.$refs.foodsList
         let el = foodsList[index]
         this.foodsScroll.scrollToElement(el, 300)
@@ -129,8 +132,6 @@
       // 计算区间高度
       _calculateHeight() {
         let foodsList = this.$refs.foodsList
-        foodsList[foodsList.length - 1].style.paddingBottom = '300px'
-        console.log(' foodsList[foodsList.length]',);
         let height = 0
         this.listHeight.push(height)
 
@@ -140,7 +141,7 @@
           this.listHeight.push(height)
         }
       },
-      //
+      // 优化体验，侧边导航跟随内容的滚动而滚动
       _followScroll(index) {
         let menuList = this.$refs.menuList
         let el = menuList[index]
