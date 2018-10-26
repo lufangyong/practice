@@ -5,7 +5,7 @@ const util = require('util')
 fs.readFile('./package.json', (err, data) => {
   if (err) return console.log(err)
 
-  const data = JSON.parse(data)
+  data = JSON.parse(data)
   console.log('callback', data.name);
 })
 
@@ -21,7 +21,7 @@ function readFileAsync(path) {
 
 readFileAsync('./package.json')
   .then(data => {
-    const data = JSON.parse(data)
+    data = JSON.parse(data)
     console.log('promise', data.name);
   })
   .catch(err => {
