@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>animation</title>
+  <meta charset="UTF-8">
+  <title>animation</title>
 </head>
 <style>
-    body {
-        height: 2000px;
-    }
+  body {
+    height: 2000px;
+  }
 
-    .back-top {
-        position: fixed;
-        right: 100px;
-        bottom: 100px;
-        width: 100px;
-        height: 100px;
-        line-height: 100px;
-        text-align: center;
-        background: #000;
-        color: #fff;
-        cursor: pointer;
-    }
+  .back-top {
+    position: fixed;
+    right: 100px;
+    bottom: 100px;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+  }
 </style>
+
 <body>
-<h1>缓动动画效果</h1>
-<h2>平滑回到顶部</h2>
-<div class="back-top" onclick="backTop()">
+  <h1>缓动动画效果</h1>
+  <h2>平滑回到顶部</h2>
+  <div class="back-top" onclick="backTop()">
     回到顶部
-</div>
-<script>
+  </div>
+  <script>
     /**
      * requestAnimationFrame:
      * 方法告诉浏览器您希望执行动画并请求浏览器在下一次重绘之前调用指定的函数来更新动画。该方法使用一个回调函数作为参数，这个回调函数会在浏览器重绘之前调用。
      */
     // requestAnimationFrame的兼容处理
     if (!window.requestAnimationFrame) {
-        requestAnimationFrame = function (fn) {
-            setTimeout(fn, 17);
-        };
+      requestAnimationFrame = function (fn) {
+        setTimeout(fn, 17);
+      };
     }
 
     /**
@@ -48,34 +50,34 @@
      * @param callback 是变化的位置回调，支持两个参数，value和isEnding，表示当前的位置值（数值）以及是否动画结束了（布尔值）
      */
     Math.easeout = function (A, B, rate, callback) {
-        if (A === B || typeof A !== 'number') {
-            return;
+      if (A === B || typeof A !== 'number') {
+        return;
+      }
+      B = B || 0;
+      rate = rate || 2;
+
+      let step = function () {
+        A = A + (B - A) / rate;
+
+        // 临界判断，终止动画
+        if (A < 1) {
+          callback(B, true);
+          return;
         }
-        B = B || 0;
-        rate = rate || 2;
-
-        let step = function () {
-            A = A + (B - A) / rate;
-
-            // 临界判断，终止动画
-            if (A < 1) {
-                callback(B, true);
-                return;
-            }
-            callback(A, false);
-            // 动画 start!
-            requestAnimationFrame(step);
-        };
-        step();
+        callback(A, false);
+        // 动画 start!
+        requestAnimationFrame(step);
+      };
+      step();
     };
 
     function backTop() {
-        let doc = document.body.scrollTop ? document.body : document.documentElement;
-        Math.easeout(doc.scrollTop, 0, 4, function (value) {
-            doc.scrollTop = value;
-        });
+      let doc = document.body.scrollTop ? document.body : document.documentElement;
+      Math.easeout(doc.scrollTop, 0, 4, function (value) {
+        doc.scrollTop = value;
+      });
     }
-
-</script>
+  </script>
 </body>
+
 </html>
