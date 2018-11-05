@@ -1,7 +1,7 @@
-const goodsModel = require('../model/goodsModel');
+const ratingsModel = require('../model/ratingsModel');
 
 const getList = async (ctx) => {
-  const data = await goodsModel.find({}, {
+  const data = await ratingsModel.find({}, {
     _id: 0
   });
 

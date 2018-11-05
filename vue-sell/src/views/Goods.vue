@@ -86,7 +86,7 @@
     },
     methods: {
       getData() {
-        this.axios.get('v1/api/goods').then(res => {
+        this.axios.get('/api/v1/goods').then(res => {
           this.goods = res.data.data.goods
           this.$nextTick(() => {
             this._initScroll()
