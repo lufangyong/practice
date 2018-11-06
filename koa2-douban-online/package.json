@@ -7,6 +7,7 @@
     "start": "node ./server/index.js"
   },
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "ejs": "^2.6.1",
     "koa": "^2.6.1",
     "koa-session": "^5.9.0",

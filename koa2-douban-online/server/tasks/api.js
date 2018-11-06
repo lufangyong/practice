@@ -1,6 +1,9 @@
 const rp = require('request-promise-native')
+const mongoose = require('mongoose')
+const Movie = mongoose.model('Movie')
 
 const fetchMovie = async item => {
+  console.log(item.doubanId);
   const url = `http://api.douban.com/v2/movie/${item.doubanId}`
   const res = await rp(url)
 
@@ -15,22 +18,67 @@ const fetchMovie = async item => {
 
 ;
 (async () => {
-  let movies = [{
-      doubanId: 26013293,
-      title: '抱紧他',
-      rate: 7.6,
-      poster: 'https://img3.doubanio.com/view/photo/l_ratio_poster/public/p2251544503.jpg'
-    },
-    {
-      doubanId: 26304268,
-      title: '致命礼物',
-      rate: 6.6,
-      poster: 'https://img1.doubanio.com/view/photo/l_ratio_poster/public/p2260731928.jpg'
-    }
-  ]
+  let movies = await Movie.find({
+    $or: [{
+        summary: {
+          $exists: false
+        }
+      },
+      {
+        summary: null
+      },
+      {
+        title: ''
+      },
+      {
+        summary: ''
+      }
+    ]
+  }).exec()
 
-  movies.map(async movie => {
+  for (let i = 0; i < [movies[0]].length; i++) {
+    let movie = movies[i]
     let movieData = await fetchMovie(movie)
-    console.log(movieData)
-  })
+
+    if (movieData) {
+      let tags = movieData.tags || []
+
+      movie.tags = []
+      movie.summary = movieData.summary || ''
+      movie.title = movieData.alt_title || movieData.title
+      movie.rawTitle = movieData.title || ''
+
+      if (movieData.attrs) {
+        movie.movieTypes = movieData.attrs.movie_type || []
+
+        let dates = movieData.attrs.pubdate || []
+        let pubdates = []
+
+        dates.map(item => {
+          if (item && item.split('(').length > 0) {
+            let parts = item.split('(')
+            let date = parts[0]
+            let country = '未知'
+
+            if (parts[1]) {
+              country = parts[1].split(')')[0]
+            }
+
+            pubdates.push({
+              date: new Date(date),
+              country
+            })
+          }
+        })
+
+        movie.pubdate = pubdates
+      }
+
+      tags.forEach(tag => {
+        movie.tags.push(tag.name)
+      })
+
+      await movie.save()
+    }
+  }
 })()

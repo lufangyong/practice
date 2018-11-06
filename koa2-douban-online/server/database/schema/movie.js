@@ -1,9 +1,19 @@
-const mogoose = require('mongoose')
-const Schema = mogoose.Schema()
-const Mixed = Schema.Types.Mixed // 存储任何数据类型
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const {
+  Mixed,
+  ObjectId
+} = Schema.Types
 
-const MovieSchema = new mongoose.Schema({
-  doubanId: String,
+const MovieSchema = new Schema({
+  doubanId: {
+    required: true,
+    type: String
+  },
+  category: {
+    type: ObjectId,
+    ref: 'Categoroy'
+  },
   rate: Number,
   title: String,
   summary: String,
@@ -29,4 +39,13 @@ const MovieSchema = new mongoose.Schema({
   }
 })
 
+MovieSchema.pre('save', function (next) {
+  if (this.isNew) {
+    this.meta.createdAt = this.meta.updatedAt = Date.now()
+  } else {
+    this.meta.updatedAt = Date.now()
+  }
+
+  next()
+})
 mongoose.model('Movie', MovieSchema)
