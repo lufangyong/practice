@@ -8,7 +8,7 @@ const {
 } = require('./database/init')
 const router = require('./routes')
 const R = require('ramda')
-const MIDDLEWARES = ['router']
+const MIDDLEWARES = ['router','parcel']
 
 const useMiddlewares = app => {
   R.map(
