@@ -9,19 +9,22 @@ const {
   connect,
   initSchema
 } = require('./database/init')
+const router = require('./routes')
 
-// 连接mongodb
+// 连接mongodb 
 ;
 (async () => {
   await connect()
 
   initSchema()
-  require('./tasks/api')
+  // require('./tasks/api')
 })()
 
 app.use(views(resolve(__dirname, './views'), {
   extension: 'pug'
 }))
+
+app.use(router.routes()).use(router.allowedMethods)
 
 app.use(async (ctx, next) => {
   await ctx.render('index', {
@@ -30,4 +33,4 @@ app.use(async (ctx, next) => {
   })
 })
 
-app.listen(9091)
+app.listen(9090)
