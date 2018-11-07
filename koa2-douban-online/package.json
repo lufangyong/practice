@@ -11,6 +11,7 @@
     "build": "rm -rf dist && parcel build src/index.html --no-cache -d dist/ --public-url /"
   },
   "dependencies": {
+    "antd": "^3.10.4",
     "bcrypt": "^3.0.2",
     "ejs": "^2.6.1",
     "koa": "^2.6.1",
@@ -23,6 +24,9 @@
     "pug": "^2.0.3",
     "puppeteer": "^1.9.0",
     "ramda": "^0.25.0",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
+    "react-router-dom": "^4.3.1",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5"
   },
