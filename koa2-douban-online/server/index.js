@@ -1,36 +1,35 @@
 const Koa = require('koa')
-const app = new Koa()
-const mongoose = require('mongoose')
-const views = require('koa-views')
-const {
-  resolve
-} = require('path')
+import {
+  join
+} from 'path'
 const {
   connect,
   initSchema
 } = require('./database/init')
 const router = require('./routes')
+const R = require('ramda')
+const MIDDLEWARES = ['router']
 
-// 连接mongodb 
+const useMiddlewares = app => {
+  R.map(
+    R.compose(
+      R.forEachObjIndexed(e => e(app)),
+      require,
+      name => join(__dirname, `./middleware/${name}`)
+    )
+  )(MIDDLEWARES)
+}
+
+// 连接mongodb
 ;
 (async () => {
+  const app = new Koa()
+
   await connect()
 
   initSchema()
   // require('./tasks/api')
+
+  await useMiddlewares(app)
+  app.listen(9090)
 })()
-
-app.use(views(resolve(__dirname, './views'), {
-  extension: 'pug'
-}))
-
-app.use(router.routes()).use(router.allowedMethods)
-
-app.use(async (ctx, next) => {
-  await ctx.render('index', {
-    you: 'he',
-    me: 'koa2'
-  })
-})
-
-app.listen(9090)

@@ -1,4 +1,4 @@
-const Router = require('koa-router')
+import KoaRouter from 'koa-router'
 const glob = require('glob')
 const {
   resolve
@@ -10,25 +10,25 @@ const routerMap = new Map()
 
 const isArray = c => _.isArray(c) ? c : [c]
 
-class Router {
+export class Route {
   constructor(app, apiPath) {
     this.app = app
     this.apiPath = apiPath
-    this.router = new Router()
+    this.router = new KoaRouter()
   }
 
   init() {
     glob.sync(resolve(this.apiPath, './**/*.js')).forEach(require)
 
-    for(let [conf,controller] of routerMap){
-       const controllers = isArray(controller) 
-       const prefixPath = conf.target[symbolPrefix]
-       if(prefixPath) prefixPath = noramlizePath(prefixPath)
-       const routerPath =prefixPath + conf.path
-       this.router[conf.method](routerPath, ...controllers)
+    for (let [conf, controller] of routerMap) {
+      const controllers = isArray(controller)
+      const prefixPath = conf.target[symbolPrefix]
+      if (prefixPath) prefixPath = noramlizePath(prefixPath)
+      const routerPath = prefixPath + conf.path
+      this.router[conf.method](routerPath, ...controllers)
     }
 
-    this.app.use(this.router.routers())
+    this.app.use(this.router.routes())
     this.app.use(this.router.allowedMethods())
   }
 }
@@ -43,7 +43,7 @@ const router = conf => (target, key, descriptor) => {
   }, target[key])
 }
 
-const controller = path => target => (target.prototype[symbolPrefix] = path)
+export const controller = path => target => (target.prototype[symbolPrefix] = path)
 
 export const get = path => router({
   method: 'get',
@@ -74,5 +74,3 @@ export const all = path => router({
   method: 'all',
   path: path
 })
-
-
