@@ -28,6 +28,7 @@ const useMiddlewares = app => {
   await connect()
 
   initSchema()
+  // require('./tasks/movie')
   // require('./tasks/api')
 
   await useMiddlewares(app)
