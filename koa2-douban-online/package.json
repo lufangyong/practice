@@ -5,7 +5,6 @@
   "license": "MIT",
   "scripts": {
     "start": "rm -rf dist && rm -rf .cache && set NODE_ENV=development && nodemon ./start.js",
-    "precommit": "standard --parser src/**/*.js server/**/*.js | snazzy",
     "dev": "rm -rf dist && rm -rf .cache && set NODE_ENV=development && nodemon ./start.js",
     "prod": "yarn build && rm -rf .cache && set NODE_ENV=production && nodemon ./start.js",
     "build": "rm -rf dist && parcel build src/index.html --no-cache -d dist/ --public-url /"
