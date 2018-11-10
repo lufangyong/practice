@@ -1,0 +1,13 @@
+/* components/like/index.wxss */
+
+.container {
+}
+
+.container image {
+  width: 32rpx;
+  height: 28rpx;
+}
+
+.container text {
+  color: #bbb;
+}
