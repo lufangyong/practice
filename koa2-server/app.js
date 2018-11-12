@@ -16,7 +16,19 @@ mongoose.connect(config.db, {useNewUrlParser: true}, (err) => {
 });
 
 // 跨域
-app.use(cors());
+app.use(cors({
+  origin: function (ctx) {
+    // if (ctx.url === '/test') {
+    //   return "*"; // 允许来自所有域名请求
+    // }
+    return 'https://www.lufangyong.com' // 只允许 指定域名访问
+  },
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 5,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}));
 // 解析body的中间件
 app.use(bodyParser());
 
