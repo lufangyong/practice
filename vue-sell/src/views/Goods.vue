@@ -86,7 +86,7 @@
     },
     methods: {
       getData() {
-        this.axios.get('/api/v1/goods').then(res => {
+        this.axios.get('/api/v1/vue-sell/goods').then(res => {
           this.goods = res.data.data.goods
           this.$nextTick(() => {
             this._initScroll()
@@ -96,7 +96,7 @@
           throw new Error(err)
         })
       },
-      selectMenu(index, evnet) {
+      selectMenu(index, event) {
         /**
          * better-scroll会将点击事件去掉，如果滚动部分需要有点击事件，需要在参数里加上click：true
          * 同时，在PC上或某些手机端，由于未成功将touchEnd事件move掉，点击事件会执行两次

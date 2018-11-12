@@ -29,7 +29,7 @@ export default {
     }
   },
   created() {
-    this.axios.get('/api/v1/seller').then(res => {
+    this.axios.get('/api/v1/vue-sell/seller').then(res => {
       if (res.data.code === '0') {
         this.seller = res.data.data.seller
       }
