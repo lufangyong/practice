@@ -1,6 +1,10 @@
 /* components/like/index.wxss */
 
 .container {
+  display: flex;
+  flex-flow: nowrap row;
+  padding: 10rpx;
+  width: 90rpx;
 }
 
 .container image {
@@ -9,5 +13,10 @@
 }
 
 .container text {
+  position: relative;
+  left: 6rpx;
+  bottom: 10rpx;
+  font-size: 24rpx;
+  line-height: 24rpx;
   color: #bbb;
 }

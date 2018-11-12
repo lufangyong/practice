@@ -4,14 +4,16 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"nodeModules": false,
+		"uglifyFileName": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.3.0",
+	"libVersion": "2.4.0",
 	"appid": "wx5e206ef8f9005edb",
 	"projectname": "blink",
 	"debugOptions": {
