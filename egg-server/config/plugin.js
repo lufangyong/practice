@@ -8,3 +8,10 @@ exports.mongoose = {
   enable: true,
   package: 'egg-mongoose',
 }
+
+// 验证
+exports.validate = {
+  enable: true,
+  package: 'egg-validate',
+}
+
