@@ -1,7 +1,7 @@
 const goodsModel = require('../model/goodsModel');
 
 const getList = async (ctx) => {
-  const data = await goodsModel.find({}, {
+  const res = await goodsModel.find({}, {
     _id: 0
   });
 
@@ -10,7 +10,7 @@ const getList = async (ctx) => {
   ctx.body = {
     code: '0',
     msg: '成功',
-    data: data[0]
+    data: res
   }
 };
 
