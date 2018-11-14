@@ -16,7 +16,7 @@ module.exports = appInfo => {
     csrf: {
       enable: false, // 关闭安全插件提供的功能
     },
-    domainWhiteList: [ 'http://localhost:8000' ], // 可拓展 href 和 src 中允许的域名白名单
+    domainWhiteList: ['http://localhost:8000'], // 可拓展 href 和 src 中允许的域名白名单
   }
 
   // port

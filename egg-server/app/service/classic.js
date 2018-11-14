@@ -27,9 +27,30 @@ class ClassicService extends Service {
   }
 
   // 获取某一期详细信息
-  async findDetail({type, id}) {
+  async findDetail({id, type}) {
     return this.ctx.model.Classic.find({id, type})
     // return this.ctx.model.Classic.find({$or: [{id}, {type}]})
+  }
+
+  // 获取点赞信息
+  async findFavor({id, type}) {
+    // find 第一参数 筛选条件，第二个参数 指定放回的数据 0：不返回 1；放回
+    return this.ctx.model.Classic.find({id, type}, {favNums: 1, id: 1, likeStatus: 1})
+  }
+
+  /**
+   * 获取我喜欢的期刊
+   * @param pageNum 页数
+   * @param pageSize 每页的内容条数
+   * @returns {Promise<DocumentQuery<any[], any> & {}>}
+   */
+  async findFavorAll({pageNum = 1, pageSize = 10}) {
+    let skip = ((pageNum - 1) * pageSize)
+    let search = {
+      likeStatus: 1
+    }
+
+    return this.ctx.model.Classic.find().skip(skip).limit(pageSize).sort({pubdate: -1}).exec()
   }
 
 }

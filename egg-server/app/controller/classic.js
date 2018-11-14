@@ -71,10 +71,31 @@ class ClassicController extends Controller {
   async findDetail() {
     const {ctx, service} = this
     const payload = ctx.params
-    console.log('payload', payload);
 
     // 调用 Service 进行业务处理
     const res = await service.classic.findDetail(payload)
+    // 设置响应内容和响应状态码
+    ctx.helper.success({ctx, res})
+  }
+
+  // 获取点赞信息
+  async findFavor() {
+    const {ctx, service} = this
+    const payload = ctx.params
+
+    // 调用 Service 进行业务处理
+    const res = await service.classic.findFavor(payload)
+    // 设置响应内容和响应状态码
+    ctx.helper.success({ctx, res})
+  }
+
+  // 获取我喜欢的期刊
+  async findFavorAll() {
+    const {ctx, service} = this
+    const payload = ctx.query
+
+    // 调用 Service 进行业务处理
+    const res = await service.classic.findFavorAll(payload)
     // 设置响应内容和响应状态码
     ctx.helper.success({ctx, res})
   }

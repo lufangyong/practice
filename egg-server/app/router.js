@@ -20,6 +20,8 @@ module.exports = app => {
   router.get('/api/v1/blink/classic/:index/next', controller.classic.findNext)
   router.get('/api/v1/blink/classic/:index/previous', controller.classic.findPrevious)
   router.get('/api/v1/blink/classic/:id/:type', controller.classic.findDetail)
+  router.get('/api/v1/blink/classic/:id/:type/favor', controller.classic.findFavor)
+  router.get('/api/v1/blink/classic/favor', controller.classic.findFavorAll)
   router.resources('classic', '/api/v1/blink/classic', controller.classic)
 
 }
