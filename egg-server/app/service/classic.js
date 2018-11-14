@@ -42,15 +42,15 @@ class ClassicService extends Service {
    * 获取我喜欢的期刊
    * @param pageNum 页数
    * @param pageSize 每页的内容条数
-   * @returns {Promise<DocumentQuery<any[], any> & {}>}
+   * @returns
    */
   async findFavorAll({pageNum = 1, pageSize = 10}) {
-    let skip = ((pageNum - 1) * pageSize)
-    let search = {
-      likeStatus: 1
+    const skip = ((pageNum - 1) * pageSize)
+    const search = {
+      likeStatus: 1,
     }
 
-    return this.ctx.model.Classic.find().skip(skip).limit(pageSize).sort({pubdate: -1}).exec()
+    return this.ctx.model.Classic.find(search).skip(skip).limit(pageSize).sort({pubdate: -1}).exec()
   }
 
 }
