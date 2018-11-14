@@ -87,11 +87,17 @@
     methods: {
       getData() {
         this.axios.get('/api/v1/vue-sell/goods').then(res => {
-          this.goods = res.data.data.goods
-          this.$nextTick(() => {
-            this._initScroll()
-            this._calculateHeight()
-          })
+          const {status} = res
+
+          if (status.toString().startsWith('2')) {
+            if (res.data.code === 0) {
+              this.goods = res.data.data[0].goods
+              this.$nextTick(() => {
+                this._initScroll()
+                this._calculateHeight()
+              })
+            }
+          }
         }).catch(err => {
           throw new Error(err)
         })
