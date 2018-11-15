@@ -19,7 +19,8 @@ class HTTP {
       url: `${config.apiBaseUrl}${url}`,
       data: data,
       header: {
-        'content-type': 'application/json',
+        // 'content-type': 'application/json',
+        'content-type': 'application/x-www-form-urlencoded',
         'appkey': config.appkey
       },
       method: method,

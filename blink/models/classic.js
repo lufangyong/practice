@@ -5,7 +5,7 @@ import {
 export default class ClassicModel extends HTTP {
   getLatest(cb) {
     this.request({
-      url: '/blink/classic/1',
+      url: '/classic/latest',
       success: res => {
         cb(res)
       }

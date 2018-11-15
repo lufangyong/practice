@@ -1,0 +1,17 @@
+import {
+  HTTP
+} from '../utils/http';
+
+export default class LikeModel extends HTTP {
+  like(behavior, id) {
+    let url = behavior === 'like' ? '/like' : '/like/cancel'
+
+    this.request({
+      url: url,
+      method: 'post',
+      data: {
+        id: id
+      }
+    })
+  }
+}

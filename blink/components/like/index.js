@@ -20,7 +20,7 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    onLike: function(event) {
+    onLike: function (event) {
       let isLike = this.properties.isLike
       let count = this.properties.count
       count = isLike ? count - 1 : count + 1
@@ -28,6 +28,11 @@ Component({
       this.setData({
         isLike: !isLike,
         count: count
+      })
+      // 激活
+      let behavior = this.properties.isLike ? 'like' : 'cancel'
+      this.triggerEvent('like', {
+        behavior: behavior
       })
     }
   }

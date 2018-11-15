@@ -1,5 +1,5 @@
 const config = {
-  apiBaseUrl: 'https://www.lufangyong.com/api/v1',
+  apiBaseUrl: 'https://www.lufangyong.com/api/v1/blink',
   appkey: "",
 }
 
