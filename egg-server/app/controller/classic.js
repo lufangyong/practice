@@ -6,9 +6,11 @@ class ClassicController extends Controller {
 
     this.createClassic = {
       id: {type: 'string', required: true, allowEmpty: false},
-      content: {type: String, required: true, allowEmpty: false}
+      content: {type: 'string', required: true, allowEmpty: false}
     }
   }
+
+  // ============================== CRUD 基于egg封装RESTful api==============================
 
   // 获取所有期刊
   async index() {
@@ -38,9 +40,47 @@ class ClassicController extends Controller {
     ctx.validate(this.createClassic)
     // 组装参数
     const payload = ctx.request.body || {}
-    console.log('body', payload);
+    // console.log('body', payload);
     // 调用 Service 进行业务处理
     const res = await service.classic.create(payload)
+    // 设置响应内容和响应状态码
+    ctx.helper.success({ctx, res})
+  }
+
+  // 更新
+  async update() {
+    const {ctx, service} = this
+    // 组装参数
+    const {id} = ctx.query
+    const payload = ctx.request.body || {}
+
+    // 校验参数
+    // ctx.validate(this.createClassic)
+    // 调用 Service 进行业务处理
+    const res = await service.classic.update(id, payload)
+    // 设置响应内容和响应状态码
+    ctx.helper.success({ctx, res})
+  }
+
+  // 删除
+  async destroy() {
+    const {ctx, service} = this
+    // 校验参数
+    const {id} = ctx.query
+    // 调用 Service 进行业务处理
+    await service.classic.destroy(id)
+    // 设置响应内容和响应状态码
+    ctx.helper.success({ctx})
+  }
+
+  // ============================== CRUD END ==============================
+
+  // 获取最新的一期
+  async findLatest() {
+    const {ctx, service} = this
+
+    // 调用 Service 进行业务处理
+    const res = await service.classic.findLatest()
     // 设置响应内容和响应状态码
     ctx.helper.success({ctx, res})
   }
@@ -98,6 +138,24 @@ class ClassicController extends Controller {
     const res = await service.classic.findFavorAll(payload)
     // 设置响应内容和响应状态码
     ctx.helper.success({ctx, res})
+  }
+
+  // 进行点赞
+  async like() {
+    const {ctx, service} = this
+    const {id} = ctx.query
+
+    const res = await service.classic.like(id)
+    ctx.helper.success({ctx, res: {}, msg: '点赞成功'})
+  }
+
+  // 取消点赞
+  async cancelLike() {
+    const {ctx, service} = this
+    const {id} = ctx.query
+
+    const res = await service.classic.cancelLike(id)
+    ctx.helper.success({ctx, res: {}, msg: '取消点赞'})
   }
 
 }

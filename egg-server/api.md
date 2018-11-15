@@ -62,3 +62,25 @@ Params:
 
 - start 开始的页数,默认为 1
 - count: 每页的内容条数,不超过 20,默认为 20
+
+## 进行点赞
+
+URL
+
+- POST /like
+
+Params:
+
+- id: 点赞对象,例如你想对电影进行点赞，那这个参数就是电影的 id 号
+- type：点赞类型分为四种：100 电影 200 音乐 300 句子 400 书籍
+
+## 取消点赞
+
+URL
+
+- POST /like/cancel
+
+Params:
+
+- id: 点赞对象 id
+- type：点赞类型

@@ -2,6 +2,8 @@ const Service = require('egg').Service
 
 class ClassicService extends Service {
 
+  // ============================== CRUD 基于egg封装RESTful api==============================
+
   async index() {
     return await this.ctx.model.Classic.find({})
   }
@@ -14,6 +16,38 @@ class ClassicService extends Service {
   // 创建一条期刊
   async create(payload) {
     return this.ctx.model.Classic.create(payload)
+  }
+
+  // 更新
+  async update(_id, payload) {
+    const {ctx, service} = this
+    const classic = await ctx.service.classic.find(_id)
+    if (!classic) {
+      ctx.throw(404, 'classic not found')
+    }
+
+    return ctx.model.Classic.findByIdAndUpdate(_id, payload)
+  }
+
+  // 删除
+  async destroy(_id) {
+    const {ctx, service} = this
+    const classic = await this.find(_id)
+    if (!classic) {
+      ctx.throw(404, 'classic not found')
+    }
+    return ctx.model.Classic.findByIdAndRemove(_id)
+  }
+
+  async find(id) {
+    return this.ctx.model.Classic.findById(id)
+  }
+
+  // ============================== CRUD END ==============================
+
+  // 获取最新的一期
+  async findLatest() {
+    return this.ctx.model.Classic.findOne({index: 1})
   }
 
   // 获取当前一期的下一期
@@ -51,6 +85,26 @@ class ClassicService extends Service {
     }
 
     return this.ctx.model.Classic.find(search).skip(skip).limit(pageSize).sort({pubdate: -1}).exec()
+  }
+
+  // 进行点赞
+  async like(id) {
+    const classic = await this.ctx.model.Classic.find({id: id})
+
+    if (classic.length === 0) {
+      this.ctx.throw(404, 'id不存在')
+    }
+
+    return this.ctx.model.Classic.findOneAndUpdate({id: id}, {
+      likeStatus: 1
+    })
+  }
+
+  // 取消点赞
+  async cancelLike(id) {
+    return this.ctx.model.Classic.findOneAndUpdate(id, {
+      likeStatus: 0
+    })
   }
 
 }
