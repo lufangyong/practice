@@ -1,0 +1,44 @@
+/* components/upside/index.wxss */
+.container {
+  display: inline-flex;
+  flex-flow: row nowrap;
+  height: 60rpx;
+}
+
+.index-contaienr{
+  display: flex;
+  align-items: baseline;
+}
+.plain {
+  font-size: 32rpx;
+}
+
+.index {
+  line-height: 60rpx;
+  margin-right: 14rpx;
+  font-size: 60rpx;
+  font-weight: 600;
+}
+
+.line {
+  display: inline-block;
+  height: 44rpx;
+  margin-right: 14rpx;
+  margin-bottom: 2rpx;
+  border-left: 1px solid #000;
+}
+
+.date-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5rpx;
+}
+
+.month {
+  line-height: 24rpx;
+  font-size: 24rpx;
+}
+
+.year {
+  font-size: 20rpx
+}

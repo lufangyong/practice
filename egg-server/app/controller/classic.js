@@ -143,19 +143,19 @@ class ClassicController extends Controller {
   // 进行点赞
   async like() {
     const {ctx, service} = this
-    const {id} = ctx.query
+    const {id} = ctx.request.body
 
     const res = await service.classic.like(id)
-    ctx.helper.success({ctx, res: {}, msg: '点赞成功'})
+    ctx.helper.success({ctx, res, msg: '点赞成功'})
   }
 
   // 取消点赞
   async cancelLike() {
     const {ctx, service} = this
-    const {id} = ctx.query
+    const {id} = ctx.request.body
 
     const res = await service.classic.cancelLike(id)
-    ctx.helper.success({ctx, res: {}, msg: '取消点赞'})
+    ctx.helper.success({ctx, res, msg: '取消点赞'})
   }
 
 }

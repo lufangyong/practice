@@ -1,3 +1,8 @@
 <!-- pages/classic/classic.wxml -->
-<v-like bind:like="onLike" isLike="{{classicData.likeStatus}}" count="{{classicData.favNums}}"/>
-<v-movie img="{{classicData.image}}" content="{{classicData.content}}"/>
+<view class="header">
+  <v-episode index="{{8}}" />
+  <v-like bind:like="onLike" isLike="{{classicData.likeStatus}}" count="{{classicData.favNums}}" />
+</view>
+<view class="">
+  <v-movie img="{{classicData.image}}" content="{{classicData.content}}" />
+</view>

@@ -19,5 +19,6 @@
 }
 
 .content {
+  max-width: 550rpx;
   font-size: 36rpx;
 }
