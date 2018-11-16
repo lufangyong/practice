@@ -1,0 +1,7 @@
+<!-- components/classic/music/index.wxml -->
+<view class="contaienr">
+  <image class="" src="{{img}}" />
+  <image class="" src="{{img}}" />
+  <image class="" src="./images/music@tag.png" />
+  <text class="">{{content}}</text>
+</view>

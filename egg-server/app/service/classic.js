@@ -4,17 +4,21 @@ class ClassicService extends Service {
 
   // ============================== CRUD 基于egg封装RESTful api==============================
 
+  // 获取所有期刊
   async index() {
-    return await this.ctx.model.Classic.find({})
+    return await this.ctx.model.Classic.find({}).sort({index: 1})
   }
+
   // 获取某一期期刊
   async show(id) {
     return await this.ctx.model.Classic.findOne({id: id})
   }
+
   // 创建一条期刊
   async create(payload) {
     return this.ctx.model.Classic.create(payload)
   }
+
   // 更新
   async update(_id, payload) {
     const {ctx, service} = this
@@ -25,6 +29,7 @@ class ClassicService extends Service {
 
     return ctx.model.Classic.findByIdAndUpdate(_id, payload)
   }
+
   // 删除
   async destroy(_id) {
     const {ctx, service} = this
@@ -43,26 +48,38 @@ class ClassicService extends Service {
 
   // 获取最新的一期
   async findLatest() {
-    return this.ctx.model.Classic.findOne({index: 1})
+    const allClassic = await this.index()
+    const latestIndex = allClassic.length
+
+    return this.ctx.model.Classic.findOne({index: latestIndex})
   }
+
   // 获取当前一期的下一期
   async findNext(index) {
-    return this.ctx.model.Classic.findOne({index: index})
+    const nextIndex = Number(index) + 1
+    console.log('next', nextIndex);
+    return this.ctx.model.Classic.findOne({index: nextIndex})
   }
+
   // 获取当前一期的上一期
   async findPrevious(index) {
-    return this.ctx.model.Classic.findOne({index: index})
+    const prevIndex = Number(index) - 1
+
+    return this.ctx.model.Classic.findOne({index: prevIndex})
   }
+
   // 获取某一期详细信息
   async findDetail({id, type}) {
     return this.ctx.model.Classic.find({id, type})
     // return this.ctx.model.Classic.find({$or: [{id}, {type}]})
   }
+
   // 获取点赞信息
   async findFavor({id, type}) {
     // find 第一参数 筛选条件，第二个参数 指定放回的数据 0：不返回 1；放回
     return this.ctx.model.Classic.find({id, type}, {favNums: 1, id: 1, likeStatus: 1})
   }
+
   /**
    * 获取我喜欢的期刊
    * @param pageNum 页数
@@ -77,6 +94,7 @@ class ClassicService extends Service {
 
     return this.ctx.model.Classic.find(search).skip(skip).limit(pageSize).sort({pubdate: -1}).exec()
   }
+
   // 进行点赞
   async like(id) {
     if (!id) {
@@ -95,6 +113,7 @@ class ClassicService extends Service {
       favNums: favNums + 1
     })
   }
+
   // 取消点赞
   async cancelLike(id) {
     if (!id) {

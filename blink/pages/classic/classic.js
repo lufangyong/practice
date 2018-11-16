@@ -11,7 +11,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    classicData: {},
+    classicData: null,
+    first: false,
+    latest: true,
+    latestIndex: null,
   },
 
   /**
@@ -21,7 +24,8 @@ Page({
     classicModel.getLatest(res => {
       // console.log(res.data)
       this.setData({
-        classicData: res.data
+        classicData: res.data,
+        latestIndex: res.data.index
       })
     })
   },
@@ -29,6 +33,35 @@ Page({
     console.log(event)
     const behavior = event.detail.behavior
     likeModel.like(behavior, this.data.classicData.id)
+  },
+  onNext: function (event) {
+    this._updateClassic('next')
+
+  },
+  onPrevious: function (event) {
+    this._updateClassic('previous')
+    // const index = this.data.classicData.index
+
+    // classicModel.getPrevious(index, res => {
+    //   this.setData({
+    //     classicData: res.data,
+    //     latest: classicModel.isLatest(res.data.index),
+    //     first: classicModel.isFirst(res.data.index)
+    //   })
+    // })
+
+  },
+  _updateClassic: function (nextOrPrevious) {
+    const index = this.data.classicData.index
+    console.log(this.data.classicData.index);
+    classicModel.getClassic(index, nextOrPrevious, res => {
+      this.setData({
+        classicData: res.data,
+        latest: classicModel.isLatest(res.data.index),
+        first: classicModel.isFirst(res.data.index)
+      })
+    })
+
   },
   methods: {
 

@@ -1,8 +1,9 @@
 <!-- pages/classic/classic.wxml -->
-<view class="header">
-  <v-episode index="{{8}}" />
-  <v-like bind:like="onLike" isLike="{{classicData.likeStatus}}" count="{{classicData.favNums}}" />
-</view>
-<view class="">
+<view class="container">
+  <view class="header">
+    <v-episode index="{{8}}" />
+    <v-like bind:like="onLike" isLike="{{classicData.likeStatus}}" count="{{classicData.favNums}}" />
+  </view>
   <v-movie img="{{classicData.image}}" content="{{classicData.content}}" />
+  <v-nav class="nav" title="{{classicData.title}}" latest="{{latest}}" first="{{first}}" bind:left="onNext" bind:right="onPrevious" />
 </view>

@@ -1,0 +1,20 @@
+/* components/nav/index.wxss */
+.container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 600rpx;
+  height: 80rpx;
+  background-color: #f7f7f7;
+  border-radius: 2px;
+}
+
+.icon {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.text {
+  font-size: 28rpx;
+}
