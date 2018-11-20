@@ -1,5 +1,5 @@
 <!--components/classic/essay/index.wxml-->
-<view class="container">
+<view hidden="{{hidden}}" class="container">
   <image class="classic-image" src="{{img}}"></image>
   <image class="tag" src="./images/essay@tag.png"></image>
   <text class="content">{{content}}</text>

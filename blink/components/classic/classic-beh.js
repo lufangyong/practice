@@ -5,6 +5,9 @@
      },
      content: {
        type: String
+     },
+     hidden: {
+       type: Boolean
      }
    },
    attached: function () {

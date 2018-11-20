@@ -2,8 +2,11 @@
 <view class="container">
   <view class="header">
     <v-episode index="{{8}}" />
-    <v-like bind:like="onLike" isLike="{{classicData.likeStatus}}" count="{{classicData.favNums}}" />
+    <v-like bind:like="onLike" isLike="{{likeStatus}}" count="{{likeCount}}" />
   </view>
-  <v-movie img="{{classicData.image}}" content="{{classicData.content}}" />
+  <view>{{classData.type}}</view>
+  <v-movie hidden="{{classicData.type !== 100}}" img="{{classicData.image}}" content="{{classicData.content}}" />
+  <v-music wx:if="{{classicData.type==200}}" img="{{classicData.image}}" content="{{classicData.content}}" title="{{classicData.title}}" src="{{classicData.url}}" />
+  <v-essay hidden="{{classicData.type !== 300}}" img="{{classicData.image}}" content="{{classicData.content}}" />
   <v-nav class="nav" title="{{classicData.title}}" latest="{{latest}}" first="{{first}}" bind:left="onNext" bind:right="onPrevious" />
 </view>
