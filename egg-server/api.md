@@ -84,3 +84,7 @@ Params:
 
 - id: 点赞对象 id
 - type：点赞类型
+
+## 获取热门书籍(概要)
+URL
+- GET /book/hot_list
