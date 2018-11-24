@@ -14,5 +14,5 @@ module.exports = app => {
     type: {type: Number}
   })
 
-  return mongoose.model('blink-classic', ClassicSchema);
+  return mongoose.model('blink-classic', ClassicSchema)
 }

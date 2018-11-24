@@ -20,5 +20,5 @@ module.exports = app => {
     author: {type: [String]},
   })
 
-  return mongoose.model('blink-book-detail', BookDetailSchema);
+  return mongoose.model('blink-book-detail', BookDetailSchema)
 }

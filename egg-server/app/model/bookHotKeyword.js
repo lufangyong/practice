@@ -6,5 +6,5 @@ module.exports = app => {
     keyword: {type: String, ensureIndex: true, required: true},
   })
 
-  return mongoose.model('blink-book-hot-keyword', BookHotKeywordSchema);
+  return mongoose.model('blink-book-hot-keyword', BookHotKeywordSchema)
 }

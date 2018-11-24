@@ -5,7 +5,8 @@ module.exports = app => {
   const BookShortCommentSchema = new Schema({
     bookId: {type: Number, required: true,},
     content: {type: String, required: true},
+    nums: {type: Number}
   })
 
-  return mongoose.model('blink-book-short-comment', BookShortCommentSchema);
+  return mongoose.model('blink-book-short-comment', BookShortCommentSchema)
 }
