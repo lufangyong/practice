@@ -8,7 +8,8 @@ Component({
   },
   externalClasses: ['tag-class'],
   properties: {
-    text: String
+    _id: String,
+    text: String,
   },
 
   /**
@@ -22,6 +23,10 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    onTap(event) {
+      this.triggerEvent('tapping', {
+        text: this.properties._id
+      })
+    }
   }
 })

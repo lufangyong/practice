@@ -23,6 +23,25 @@ class BookModel extends HTTP {
     })
   }
 
+  putclickComment(id) {
+    return this.request({
+      url: `/book_short_comment?${id}`,
+      method: 'put'
+    })
+  }
+
+  postComment(bid, comment) {
+    return this.request({
+      url: '/book_short_comment',
+      method: 'post',
+      data: {
+        bookId: bid,
+        content: comment,
+        nums: 0
+      }
+    })
+  }
+
 }
 
 export {

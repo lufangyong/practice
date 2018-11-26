@@ -5,7 +5,8 @@ class BookShortCommentController extends Controller {
     super(ctx)
 
     this.createBookShortComment = {
-      bookId: {type: 'string', required: true, allowEmpty: false},
+      bookId: {type: 'number', required: true, allowEmpty: false},
+      content: {type: 'string', required: true, allowEmpty: false},
     }
   }
 

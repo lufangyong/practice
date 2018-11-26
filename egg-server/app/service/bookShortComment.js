@@ -20,19 +20,22 @@ class BookShortCommentService extends Service {
   }
 
   // 更新
-  async update(_id, payload) {
-    const {ctx, service} = this
-    const classic = await ctx.service.classic.find(_id)
-    if (!classic) {
-      ctx.throw(404, '修改的期刊不存在')
+  async update(_id) {
+    const {ctx} = this
+    const comment = await this.find(_id)
+
+    if (!comment) {
+      ctx.throw(404, '修改id不存在')
     }
 
-    return ctx.model.BookShortComment.findByIdAndUpdate(_id, payload)
+    return ctx.model.BookShortComment.findByIdAndUpdate(_id, {
+      nums: comment.nums + 1
+    })
   }
 
   // 删除
   async destroy(_id) {
-    const {ctx, service} = this
+    const {ctx} = this
     const classic = await this.find(_id)
     if (!classic) {
       ctx.throw(404, '删除的期刊不存在')

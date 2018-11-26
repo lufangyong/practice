@@ -43,6 +43,7 @@ module.exports = app => {
   router.resources('bookDetail', '/api/v1/blink/book_detail', controller.bookDetail)
 
   // blink book-short-comment
+  router.put('/api/v1/blink/book_short_comment', controller.bookShortComment.update)
   router.resources('bookShortComment', '/api/v1/blink/book_short_comment', controller.bookShortComment)
 
   // blink book-hot-keyword
