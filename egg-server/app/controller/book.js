@@ -73,6 +73,34 @@ class BookController extends Controller {
   }
 
   // ============================== CRUD END ==============================
+
+  // 进行点赞
+  async like() {
+    const {ctx, service} = this
+    const {id} = ctx.request.body
+
+    const res = await service.book.like(id)
+    ctx.helper.success({ctx, res, msg: '点赞成功'})
+  }
+
+  // 取消点赞
+  async cancelLike() {
+    const {ctx, service} = this
+    const {id} = ctx.request.body
+
+    const res = await service.book.cancelLike(id)
+    ctx.helper.success({ctx, res, msg: '取消点赞'})
+  }
+
+  // 搜索书籍
+  async searchBook() {
+    const {ctx, service} = this
+    const {title} = ctx.request.query
+
+    const res = await service.book.searchBook(title)
+    ctx.helper.success({ctx, res, msg: '成功'})
+  }
+
 }
 
 module.exports = BookController

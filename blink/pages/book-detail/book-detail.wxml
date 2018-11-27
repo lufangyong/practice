@@ -1,5 +1,6 @@
 <!-- pages/book-detail/book-detail.wxml -->
 <wxs src="../../utils/filter.wxs" module="util" />
+
 <view class="book-detail-wrapper">
   <view class="head">
     <image src="{{book.image}}"></image>
@@ -22,14 +23,16 @@
     <text class="content" decode="{{true}}">{{util.format(book.summary)}}</text>
   </view>
 </view>
+
 <view class="post-container" hidden="{{posting}}">
   <view class="post-fake" bind:tap="onFakePost">
     <text>输入短评</text>
   </view>
   <view class="like-conatienr">
-    <v-like bind:like="onLike" class="like" like="{{likeStatus}}" count="{{likeCount}}"></v-like>
+    <v-like bind:like="onLike" class="like" isLike="{{likeStatus}}" count="{{likeCount}}"></v-like>
   </view>
 </view>
+
 <view class="posting-container" wx:if="{{posting}}">
   <view class="post-header">
     <text wx:if="{{comments==true}}">仅可点击标签+1</text>
@@ -38,20 +41,22 @@
   </view>
   <view class="comment-container">
     <block wx:for="{{util.limit(comments, 3)}}" wx:key="content">
-      <v-tag bind:tapping="onPost" tag-class="{{tool.highlight(index)}}" text="{{item.content}}">
+      <v-tag bind:tapping="onClickTag" tag-class="{{tool.highlight(index)}}" text="{{item.content}}" _id="{{item._id}}">
         <text class="num" slot="after">{{'+'+item.nums}}</text>
       </v-tag>
     </block>
   </view>
-  <input bindconfirm="onPost" class="post" placeholder='短评最多12个字'></input>
+  <input bindconfirm="onPost" class="post" placeholder='短评最多12个字' />
 </view>
+
 <v-mask wx:if="{{posting}}" />
+
 <wxs module="tool">
   var highlight = function(index){
-    if(index === 0){
+    if (index === 0) {
       return 'ex-tag1'
     }
-    if(index === 1){
+    if (index === 1) {
       return 'ex-tag2'
     }
 

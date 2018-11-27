@@ -1,13 +1,17 @@
 import {
   HTTP
-}
-from '../utils/http-p'
+} from '../utils/http-p'
 
 class BookModel extends HTTP {
-
   getHotList() {
     return this.request({
       url: '/book/hot_list'
+    })
+  }
+
+  search(q) {
+    return this.request({
+      url: `/book/search?title=${q}`
     })
   }
 
@@ -23,9 +27,15 @@ class BookModel extends HTTP {
     })
   }
 
-  putclickComment(id) {
+  getLikeStatus(bid) {
     return this.request({
-      url: `/book_short_comment?${id}`,
+      url: `/book/${bid}`
+    })
+  }
+
+  updateCommentNums(id) {
+    return this.request({
+      url: `/book_short_comment?id=${id}`,
       method: 'put'
     })
   }
@@ -41,7 +51,6 @@ class BookModel extends HTTP {
       }
     })
   }
-
 }
 
 export {

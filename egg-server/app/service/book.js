@@ -46,6 +46,57 @@ class BookService extends Service {
 
   // ============================== CRUD END ==============================
 
+  // 书籍点赞
+  async like(id) {
+    if (!id) {
+      this.ctx.throw(404, 'id不能为空')
+    }
+
+    const book = await this.ctx.model.Book.findOne({id: id})
+
+    if (!book) {
+      this.ctx.throw(404, '点赞的书籍不存在')
+    }
+
+    return this.ctx.model.Book.findOneAndUpdate({id: id}, {
+      likeStatus: 1,
+      favNums: book.favNums + 1
+    })
+  }
+
+  // 取消点赞
+  async cancelLike(id) {
+    if (!id) {
+      this.ctx.throw(404, 'id不能为空')
+    }
+
+    const book = await this.ctx.model.Book.findOne({id: id})
+
+    if (!book) {
+      this.ctx.throw(404, '取消点赞的书籍不存在')
+    }
+
+    return this.ctx.model.Book.findOneAndUpdate({id: id}, {
+      likeStatus: 0,
+      favNums: book.favNums - 1
+    })
+  }
+
+  // 搜索书籍
+  async searchBook(title){
+    if (!title) {
+      this.ctx.throw(404, '书名不能为空')
+    }
+
+    const book = await this.ctx.model.Book.find({title: title})
+
+    if (!book) {
+      this.ctx.throw(404, '搜索的书籍不存在')
+    }
+
+    return book
+  }
+
 }
 
 module.exports = BookService

@@ -15,7 +15,19 @@ export default class LikeModel extends HTTP {
     })
   }
 
-  getClassicLikeStatus(id,category,cb) {
+  bookLike(behavior, id) {
+    let url = behavior === 'like' ? '/book/like' : '/book/like/cancel'
+
+    this.request({
+      url: url,
+      method: 'post',
+      data: {
+        id: id
+      }
+    })
+  }
+
+  getClassicLikeStatus(id, category, cb) {
     this.request({
       url: `/classic/${id}/${category}/favor`,
       success: cb

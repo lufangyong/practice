@@ -6,7 +6,12 @@ class BookHotKeywordService extends Service {
 
   // 获取所有
   async index() {
-    return await this.ctx.model.BookHotKeyword.find({})
+    const data = await this.ctx.model.BookHotKeyword.find({})
+    let res = []
+    for (let i = 0; i < data.length; i++) {
+      res.push(data[i].keyword)
+    }
+    return res
   }
 
   // 根据id获取某一条

@@ -12,6 +12,7 @@ Page({
    */
   data: {
     books: [],
+    searching: false,
   },
 
   /**
@@ -19,11 +20,22 @@ Page({
    */
   onLoad: function (options) {
     bookModel.getHotList().then(res => {
-      console.log(res.data);
       this.setData({
         books: res.data.data
       })
     })
   },
+
+  onSearching() {
+    this.setData({
+      searching: true
+    })
+  },
+
+  onCancel() {
+    this.setData({
+      searching: false
+    })
+  }
 
 })

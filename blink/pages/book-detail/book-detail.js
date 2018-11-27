@@ -2,9 +2,10 @@
 import {
   BookModel
 } from '../../models/book'
+import LikeModel from '../../models/like'
 
 const bookModel = new BookModel()
-
+const likeModel = new LikeModel()
 
 Page({
 
@@ -23,29 +24,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading()
     const bid = this.options.bid
     const detail = bookModel.getDetail(bid)
     const comments = bookModel.getComments(bid)
+    const likeStatus = bookModel.getLikeStatus(bid)
 
-    detail.then(res => {
-      // console.log(res.data.data)
+    Promise.all([detail, comments, likeStatus]).then(res => {
       this.setData({
-        book: res.data.data
+        book: res[0].data.data,
+        comments: res[1].data.data,
+        likeStatus: res[2].data.data.likeStatus,
+        likeCount: res[2].data.data.favNums,
       })
+      wx.hideLoading()
     })
 
-    comments.then(res => {
-      // console.log(res.data.data)
-      this.setData({
-        comments: res.data.data
-      })
-    })
   },
 
   onLike(event) {
     const like_or_cancel = event.detail.behavior
     console.log('like_or_cancel', like_or_cancel)
-    // likeModel.like(like_or_cancel, this.data.book.id, 400)
+    likeModel.bookLike(like_or_cancel, this.data.book.id)
   },
 
   onFakePost(event) {
@@ -61,16 +61,20 @@ Page({
   },
 
   onClickTag(event) {
-    const id = event.detail._id
+    const {
+      id,
+      text
+    } = event.detail
+    console.log(event.detail.id);
 
-    bookModel.putclickComment(id).then(res => {
+    bookModel.updateCommentNums(id).then(res => {
       wx.showToast({
         title: '+ 1',
         icon: "none"
       })
 
       this.data.comments.unshift({
-        content: comment,
+        content: text,
         nums: 1
       })
 
