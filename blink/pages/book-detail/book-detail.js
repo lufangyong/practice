@@ -44,7 +44,7 @@ Page({
 
   onLike(event) {
     const like_or_cancel = event.detail.behavior
-    console.log('like_or_cancel', like_or_cancel)
+  
     likeModel.bookLike(like_or_cancel, this.data.book.id)
   },
 
@@ -65,7 +65,6 @@ Page({
       id,
       text
     } = event.detail
-    console.log(event.detail.id);
 
     bookModel.updateCommentNums(id).then(res => {
       wx.showToast({

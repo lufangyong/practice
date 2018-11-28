@@ -1,9 +1,10 @@
 {
   "pages": [
-    "pages/book/book",
     "pages/classic/classic",
+    "pages/book/book",
     "pages/my/my",
-    "pages/book-detail/book-detail"
+    "pages/book-detail/book-detail",
+    "pages/about/about"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -15,8 +16,7 @@
     "selectedColor": "#000000",
     "backgroundColor": "#ffffff",
     "color": "#c7c7c7",
-    "list": [
-      {
+    "list": [{
         "selectedIconPath": "/images/tab/classic@highlight.png",
         "pagePath": "pages/classic/classic",
         "text": "流行",

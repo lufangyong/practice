@@ -1,8 +1,13 @@
 <!-- pages/classic/classic.wxml -->
 <view class="container">
   <view class="header">
-    <v-episode index="{{8}}" />
-    <v-like bind:like="onLike" isLike="{{likeStatus}}" count="{{likeCount}}" />
+    <v-episode index="{{classicData.index}}" />
+    <view class="like-container">
+      <v-like class="like" bind:like="onLike" like="{{likeStatus}}" count="{{likeCount}}" />
+      <v-button class="share-btn" open-type="share">
+        <image class="share" slot="img" src="/images/icon/share.png" />
+      </v-button>
+    </view>
   </view>
   <view>{{classData.type}}</view>
   <v-movie hidden="{{classicData.type !== 100}}" img="{{classicData.image}}" content="{{classicData.content}}" />

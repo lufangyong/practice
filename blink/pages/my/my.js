@@ -5,7 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    authorized: false,
+    userInfo: null,
+    bookCount: 0,
+    classics: null
   },
 
   /**
@@ -15,52 +18,43 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  onShow() {
+    this.userAuthorized()
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  // 如果用户授权过，直接拿到用户信息
+  userAuthorized() {
+    wx.getSetting({
+      success: data => {
+        if (data.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success: data => {
+              this.setData({
+                authorized: true,
+                userInfo: data.userInfo
+              })
+            }
+          })
+        }
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
+  onGetUserInfo(event) {
+    const userInfo = event.detail.userInfo
 
+    if (userInfo) {
+      this.setData({
+        userInfo,
+        authorized: true
+      })
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  onJumpToAbout(event) {
+    wx.navigateTo({
+      url: '/pages/about/about',
+    })
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })
