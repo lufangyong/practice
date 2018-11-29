@@ -41,6 +41,9 @@
                   <span class="now">￥{{food.price}}</span>
                   <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol @add="addFood" :food="food"></cartcontrol>
+                </div>
               </div>
             </li>
           </ul>
@@ -52,6 +55,7 @@
 
 <script>
   import BScroll from 'better-scroll';
+  import Cartcontrol from '../components/Cartcontrol'
 
   export default {
     name: 'goods',
@@ -63,7 +67,9 @@
         currentIndex: '',
       }
     },
-    components: {},
+    components: {
+      Cartcontrol
+    },
     computed: {},
     created() {
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
@@ -117,6 +123,9 @@
         let foodsList = this.$refs.foodsList
         let el = foodsList[index]
         this.foodsScroll.scrollToElement(el, 300)
+      },
+      addFood() {
+
       },
       _initScroll() {
         this.menuScroll = new BScroll(this.$refs.menuWrapper, {
