@@ -5,11 +5,11 @@
 </template>
 
 <script>
-  export default {
-    name: 'index'
-  }
+export default {
+  name: 'index',
+  created() {}
+}
 </script>
 
 <style scoped>
-
 </style>

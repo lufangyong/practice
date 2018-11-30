@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "mpvue": "^1.0.11",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "wafer2-client-sdk": "^2.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
