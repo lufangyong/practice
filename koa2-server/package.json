@@ -1,8 +1,12 @@
 {
-  "name": "koa-tpl",
+  "name": "koa-server",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "pm2 start process.prod.json --no-daemon",
+    "dev": "nodemon --config nodemon.json app.js"
+  },
   "dependencies": {
     "koa": "^2.5.2",
     "koa-bodyparser": "^4.2.1",
