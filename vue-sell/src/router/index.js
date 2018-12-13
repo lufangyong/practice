@@ -11,3 +11,20 @@ export default new VueRouter({
   scrollBehavior: () => ({y: 0}),
   routes: RouterConfig.concat(CommonRouters)
 })
+
+/**
+ * 路由前置守卫
+ * 如果没有登录则跳转登录页
+ */
+/*router.beforeEach((to, from, next) => {
+  let hasLogin = localStorage.getItem("accessToken") ? true : false;
+  if (!hasLogin) {
+    if (to.path == '/login') {  // 防止触发死循环
+      next()
+    } else {
+      next({path: '/login'});
+    }
+  } else {
+    next();
+  }
+});*/
