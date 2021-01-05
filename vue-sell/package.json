@@ -18,7 +18,7 @@
     "@vue/cli-plugin-babel": "^3.0.4",
     "@vue/cli-plugin-eslint": "^3.0.4",
     "@vue/cli-service": "^3.0.4",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "lint-staged": "^8.1.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
